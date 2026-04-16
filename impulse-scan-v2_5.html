@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0d0d0d">
+<meta name="description" content="IMPULSE Scan — диагностика трёх уровней системы: Тело, Сознание, Энергия. 30 вопросов · ~5 минут.">
+<meta property="og:title" content="△ IMPULSE Scan — Диагностика системы">
+<meta property="og:description" content="Покажет где ты сейчас, где теряется ресурс и с чего начинается изменение.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90'><polygon points='50,4 97,86 3,86' stroke='%235bb8ff' stroke-width='6' fill='none' stroke-linejoin='round'/></svg>">
+<title>△ IMPULSE Scan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c-body:#4dd9ff;
+  --c-mind:#a374f7;
+  --c-energy:#f0a844;
+  --c-bg:#0d0d0d;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{
+  background:#0d0d0d !important;color:#e8e8e8;
+  font-family:-apple-system,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
+  font-weight:300;min-height:100vh;-webkit-font-smoothing:antialiased;
+  /* prevent horizontal overflow on mobile */
+  overflow-x:hidden;
+  width:100%;
+}
+.scr{display:none}
+.pg{
+  min-height:100vh;flex-direction:column;align-items:center;
+  justify-content:center;
+  padding:48px clamp(20px,5vw,48px);
+  text-align:center;
+  width:100%;
+}
+
+/* ── INTRO ── */
+.btn{
+  padding:16px clamp(36px,9vw,56px);
+  background:transparent;border:1px solid rgba(91,184,255,.5);color:#5bb8ff;
+  font-size:clamp(9px,2.3vw,11px);letter-spacing:.52em;text-transform:uppercase;
+  cursor:pointer;font-family:inherit;transition:all .35s;
+  width:100%;max-width:380px;
+}
+.btn:hover{background:#5bb8ff;color:#000}
+.note{font-size:9px;color:rgba(255,255,255,.32);letter-spacing:.18em;line-height:1.9;margin-top:12px;text-align:center}
+
+.intro-inner{
+  display:flex;flex-direction:column;align-items:center;
+  width:100%;max-width:420px;
+  animation:fadeUp .7s ease both;
+  padding:0;
+}
+
+/* Triangle */
+.intro-tri-anim{margin-bottom:20px}
+.intro-svg-tri{animation:fadeUp .8s ease both;filter:drop-shadow(0 0 10px rgba(91,184,255,.22))}
+
+/* △ ДИАГНОСТИКА — eyebrow exactly like screenshot */
+.intro-eyebrow{
+  font-size:9px;letter-spacing:.52em;text-transform:uppercase;
+  color:rgba(91,184,255,.65);margin-bottom:12px;font-weight:400;
+  display:flex;align-items:center;gap:14px;
+}
+.intro-eyebrow::before,.intro-eyebrow::after{
+  content:'';display:block;width:30px;height:1px;
+  background:rgba(91,184,255,.28);
+}
+
+/* IMPULSE — large, light weight */
+.intro-title{
+  font-size:clamp(46px,13vw,74px);font-weight:100;letter-spacing:.14em;
+  color:#ffffff;line-height:.92;margin-bottom:0px;text-align:center;
+}
+
+/* SCAN — small, spaced, below IMPULSE */
+.intro-scan{
+  display:block;
+  font-size:clamp(9px,2.2vw,12px);letter-spacing:.75em;text-transform:uppercase;
+  color:rgba(91,184,255,.55);margin-bottom:16px;font-weight:400;text-align:center;
+}
+
+/* tagline — small uppercase, neutral */
+.intro-tagline{
+  font-size:clamp(9px,2.3vw,11px);letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);margin-bottom:0;
+  font-weight:400;text-align:center;line-height:1.6;
+}
+
+/* thin rule — matches screenshot's —— divider */
+.intro-divider{
+  width:28px;height:1px;
+  background:linear-gradient(to right,transparent,rgba(91,184,255,.38),transparent);
+  margin:18px 0;flex-shrink:0;
+}
+
+/* 24 вопроса */
+.intro-meta{
+  font-size:clamp(9px,2.3vw,11px);letter-spacing:.38em;text-transform:uppercase;
+  color:rgba(91,184,255,.5);font-weight:400;text-align:center;
+}
+
+/* QUOTE — bright white, Cormorant, stands out */
+.intro-quote-line{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(17px,4.8vw,22px);font-style:italic;
+  color:rgba(238,248,255,.95);
+  line-height:1.6;letter-spacing:.015em;
+  text-align:center;width:100%;
+  padding:4px 8px;
+  text-shadow:0 0 32px rgba(91,184,255,.22),0 0 80px rgba(91,184,255,.08);
+}
+
+/* WHAT YOU'LL SEE box — exactly like screenshot */
+.intro-what{
+  width:100%;text-align:left;margin-bottom:20px;
+  border:1px solid rgba(91,184,255,.15);
+  background:rgba(5,14,32,.68);
+  padding:18px clamp(16px,4vw,22px) 16px;
+}
+.intro-what-lbl{
+  font-size:8px;letter-spacing:.52em;text-transform:uppercase;
+  color:rgba(91,184,255,.72);margin-bottom:14px;font-weight:400;
+}
+
+/* dot list items — left aligned, like screenshot */
+.intro-item{
+  font-size:clamp(13px,3.4vw,15px);
+  color:rgba(218,235,252,.82);
+  line-height:1.6;margin-bottom:10px;
+  display:flex;align-items:flex-start;gap:10px;
+  letter-spacing:.01em;font-weight:300;
+}
+.intro-item:last-child{margin-bottom:0}
+
+/* glowing dot — like screenshot's bullet */
+.intro-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:#5bb8ff;flex-shrink:0;
+  margin-top:6px;
+  box-shadow:0 0 6px rgba(91,184,255,.8);
+}
+
+/* level pills */
+.intro-levels{display:flex;gap:6px;margin-bottom:22px;flex-wrap:wrap;justify-content:center}
+.intro-level{
+  padding:7px clamp(10px,3vw,16px);
+  font-size:8px;letter-spacing:.35em;text-transform:uppercase;
+  border:1px solid;background:rgba(5,14,32,.5);font-weight:400;transition:opacity .2s;
+}
+.intro-level:hover{opacity:.7}
+.intro-level.body-l{color:rgba(77,217,255,.82);border-color:rgba(77,217,255,.25)}
+.intro-level.mind-l{color:rgba(163,116,247,.82);border-color:rgba(163,116,247,.25)}
+.intro-level.energy-l{color:rgba(240,168,68,.82);border-color:rgba(240,168,68,.25)}
+.intro-btn{margin-bottom:16px}
+
+/* ── PREV RESULT BANNER ── */
+.prev-banner{
+  width:100%;max-width:460px;
+  border:1px solid rgba(91,184,255,.15);
+  background:rgba(5,14,32,.6);
+  padding:14px 18px;
+  margin-bottom:20px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  animation:fadeUp .6s ease .2s both;
+}
+.prev-banner-l{text-align:left}
+.prev-banner-lbl{font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:rgba(91,184,255,.55);margin-bottom:4px;font-weight:400}
+.prev-banner-val{font-size:13px;color:rgba(220,232,248,.75);letter-spacing:.04em}
+.prev-banner-val span{color:#5bb8ff;font-weight:400}
+.prev-banner-r{font-size:9px;color:rgba(91,184,255,.4);letter-spacing:.25em;text-align:right;cursor:pointer;border:none;background:none;font-family:inherit;text-transform:uppercase;transition:color .2s}
+.prev-banner-r:hover{color:rgba(91,184,255,.75)}
+
+/* ── QUIZ ── */
+#quiz{flex-direction:column;min-height:100vh;width:100%}
+.qhdr{
+  padding:14px clamp(16px,4vw,24px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;justify-content:space-between;align-items:center;flex-shrink:0;
+}
+.qlogo{font-size:11px;letter-spacing:.42em;color:#5bb8ff;font-weight:400}
+
+/* ── DASHED PROGRESS TRACK ── */
+.progress-wrap{padding:10px clamp(16px,4vw,24px) 6px;background:#0d0d0d;flex-shrink:0}
+.progress-cat-label{
+  font-size:8px;letter-spacing:.38em;text-transform:uppercase;
+  color:rgba(255,255,255,.38);margin-bottom:8px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.progress-cat-label span{font-weight:400}
+.progress-cat-label .cat-name{transition:color .3s}
+.pips-row{display:flex;gap:3px}
+.pip{
+  height:2px;flex:1;
+  background:rgba(255,255,255,.07);
+  border-radius:0;
+  transition:background .35s,box-shadow .35s;
+}
+/* Body category colors */
+.pip-body-done{background:var(--c-body);box-shadow:0 0 5px rgba(77,217,255,.7)}
+.pip-mind-done{background:var(--c-mind);box-shadow:0 0 5px rgba(163,116,247,.7)}
+.pip-energy-done{background:var(--c-energy);box-shadow:0 0 5px rgba(240,168,68,.7)}
+.pip-body-cur{background:rgba(77,217,255,.45);animation:pipPulse 1.2s ease infinite}
+.pip-mind-cur{background:rgba(163,116,247,.45);animation:pipPulse 1.2s ease infinite}
+.pip-energy-cur{background:rgba(240,168,68,.45);animation:pipPulse 1.2s ease infinite}
+
+@keyframes pipPulse{0%,100%{opacity:.45}50%{opacity:.85}}
+
+/* ── QUESTION BODY ── */
+#qB{flex:1;overflow-y:auto;display:flex;flex-direction:column;width:100%}
+.qbdy{
+  max-width:600px;width:100%;margin:0 auto;
+  padding:clamp(24px,5vw,40px) clamp(16px,4vw,28px) 28px;
+  display:flex;flex-direction:column;flex:1;
+}
+.lvtag{display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:rgba(91,184,255,.7);margin-bottom:16px;font-weight:400}
+.lvdot{width:5px;height:5px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor;flex-shrink:0}
+.qnum{font-size:9px;color:rgba(255,255,255,.35);letter-spacing:.3em;margin-bottom:10px;text-transform:uppercase}
+.qtxt{
+  font-size:clamp(16px,4.2vw,22px);font-weight:200;line-height:1.6;
+  color:#fff;margin-bottom:clamp(20px,4vw,32px);letter-spacing:.01em;
+}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{
+  padding:clamp(12px,3vw,15px) clamp(14px,4vw,20px);
+  border:1px solid rgba(255,255,255,.15);cursor:pointer;
+  display:flex;align-items:center;gap:12px;
+  font-size:clamp(13px,3.5vw,14px);
+  color:rgba(232,232,232,.82);background:transparent;
+  text-align:left;font-family:inherit;font-weight:300;width:100%;transition:all .2s;
+}
+.opt:hover{border-color:rgba(91,184,255,.45);color:#e8e8e8;background:rgba(91,184,255,.06)}
+.opt.sel{border-color:#5bb8ff;color:#fff;background:rgba(91,184,255,.09)}
+.olttr{font-size:9px;letter-spacing:.3em;color:rgba(91,184,255,.5);min-width:16px;font-weight:400;flex-shrink:0}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:clamp(18px,4vw,28px)}
+.bbck{background:transparent;border:none;color:rgba(255,255,255,.42);font-size:9px;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:color .2s;padding:8px 0}
+.bbck:hover{color:rgba(255,255,255,.75)}
+.bnxt{
+  padding:11px clamp(18px,4vw,28px);background:transparent;
+  border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.42);
+  font-size:9px;letter-spacing:.35em;text-transform:uppercase;
+  cursor:pointer;font-family:inherit;transition:all .2s;
+}
+.bnxt.rdy{border-color:#5bb8ff;color:#5bb8ff}
+.bnxt.rdy:hover{background:#5bb8ff;color:#000}
+.khint{font-size:9px;color:rgba(255,255,255,.18);letter-spacing:.18em;text-align:center;margin-top:12px}
+@media(hover:none),(pointer:coarse){.khint{display:none}}
+
+/* ── BREAK SCREEN ── */
+.brkbdy{max-width:400px}
+.bsym{font-size:40px;color:#5bb8ff;margin-bottom:10px}
+.bnm{font-size:clamp(28px,7vw,44px);font-weight:100;color:#fff;margin-bottom:6px;letter-spacing:.06em}
+.bsb{font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:rgba(91,184,255,.7);margin-bottom:18px;font-weight:400}
+.bds{font-size:14px;line-height:1.85;color:rgba(232,232,232,.74);margin-bottom:32px}
+.bcnt{padding:13px 36px;background:transparent;border:1px solid #5bb8ff;color:#5bb8ff;font-size:10px;letter-spacing:.4em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:all .3s}
+.bcnt:hover{background:#5bb8ff;color:#000}
+
+/* ── RESULT ── */
+#result{
+  display:none;
+  max-width:680px;margin:0 auto;width:100%;
+  padding:clamp(32px,6vw,56px) clamp(16px,4vw,32px) 80px;
+}
+.rl{
+  font-size:8px;letter-spacing:.45em;text-transform:uppercase;
+  color:rgba(91,184,255,.65);margin-bottom:28px;text-align:center;font-weight:400;
+}
+
+/* PREV vs NOW comparison header */
+.result-compare{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;gap:clamp(8px,3vw,20px);
+  margin-bottom:28px;
+  padding:clamp(14px,3vw,20px);
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(5,12,28,.4);
+}
+.cmp-side{text-align:center;min-width:0}
+.cmp-lbl{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:4px;font-weight:400}
+.cmp-val{font-size:clamp(22px,6vw,40px);font-weight:100;line-height:1}
+.cmp-sub{font-size:clamp(7px,1.8vw,9px);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-top:4px;word-break:break-word}
+.cmp-arrow{font-size:18px;color:rgba(91,184,255,.35);text-align:center}
+.cmp-diff{font-size:clamp(9px,2.2vw,11px);letter-spacing:.2em;text-align:center;margin-top:4px;font-weight:400}
+
+.rlbl{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:rgba(91,184,255,.85);text-align:center;margin-bottom:6px;font-weight:400}
+.rnum{
+  font-size:clamp(72px,20vw,124px);font-weight:100;line-height:1;
+  text-align:center;margin-bottom:6px;
+  text-shadow:0 0 60px currentColor,0 0 120px currentColor;
+}
+.rname{
+  font-size:clamp(11px,2.8vw,15px);letter-spacing:.38em;text-transform:uppercase;
+  color:rgba(255,255,255,.72);text-align:center;margin-bottom:14px;font-weight:400;
+}
+.score-tri{display:flex;justify-content:center;margin:10px 0 16px;filter:drop-shadow(0 0 12px currentColor)}
+
+/* MOTIVATIONAL QUOTE */
+.rmot-top{
+  text-align:center;
+  font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  font-size:clamp(16px,4vw,22px);
+  font-style:italic;
+  color:rgba(210,232,255,.72);
+  margin:0 0 28px;
+  line-height:1.65;
+  letter-spacing:.02em;
+  padding:0;
+}
+
+.ribox{
+  border:1px solid rgba(255,255,255,.09);
+  padding:clamp(16px,4vw,24px);
+  margin-bottom:18px;
+  background:rgba(5,12,28,.35);
+}
+.ribox .lbl{margin-bottom:10px}
+.lbl{
+  font-size:8px;letter-spacing:.42em;text-transform:uppercase;
+  color:rgba(91,184,255,.95);margin-bottom:12px;font-weight:400;
+  display:block;
+}
+/* Improved readability for main interpretation text */
+.ribmn{
+  font-size:clamp(13px,3.5vw,15px);color:#eaf2ff;line-height:1.92;margin-bottom:14px;
+}
+.ribnw{font-size:clamp(13px,3.3vw,14px);color:rgba(232,232,232,.95);line-height:1.85;margin-bottom:10px}
+.ribsl{font-size:clamp(13px,3.3vw,14px);color:#eaf2ff;line-height:1.85;margin-bottom:10px}
+.ribli{padding:0;margin-bottom:10px}
+.ribli li{
+  font-size:clamp(13px,3.3vw,14px);color:rgba(232,232,232,.92);
+  line-height:1.78;margin-bottom:8px;
+  padding-left:0;position:relative;list-style:none;
+  display:flex;gap:10px;align-items:flex-start;
+}
+.ribli li::before{content:"—";flex-shrink:0;color:rgba(91,184,255,.55);margin-top:2px;font-size:11px}
+.ribqt{
+  font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  font-size:clamp(15px,4vw,18px);color:rgba(232,232,232,.88);font-style:italic;
+  border-left:2px solid rgba(91,184,255,.5);padding-left:16px;
+  line-height:1.78;margin-bottom:14px;
+}
+.rsep{height:1px;background:rgba(255,255,255,.09);margin:14px 0}
+
+/* Triangle viz */
+.rtri{display:flex;flex-direction:column;align-items:center;margin:24px 0 8px}
+.rtri svg{width:min(72vw,280px);height:min(66vw,260px);overflow:visible}
+.tleg{
+  font-size:8px;letter-spacing:.22em;color:rgba(255,255,255,.3);
+  text-align:center;margin-top:8px;margin-bottom:16px;
+}
+
+/* Level grid — stacks on very small screens */
+.rlvg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.rlv{
+  border:1px solid rgba(91,184,255,.15);
+  padding:clamp(12px,3vw,18px) clamp(6px,2vw,10px);
+  text-align:center;background:rgba(5,14,35,.7);
+}
+.rlv.fc{border-color:rgba(91,184,255,.35)}
+.lvico{font-size:14px;color:rgba(91,184,255,.85);margin-bottom:5px;text-shadow:0 0 10px rgba(91,184,255,.4)}
+.lvnm{
+  font-size:clamp(7px,1.8vw,8px);letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.7);margin-bottom:6px;font-weight:400;
+}
+.lvpct{
+  font-size:clamp(22px,6vw,36px);font-weight:200;line-height:1;margin-bottom:5px;
+}
+.lvbar{height:2px;background:rgba(255,255,255,.1);margin-bottom:7px;border-radius:1px;overflow:hidden}
+.lvbf{height:2px;border-radius:1px}
+.lvzn{
+  font-size:clamp(6px,1.6vw,8px);letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:6px;font-weight:400;line-height:1.3;
+}
+.lvbot{margin-top:7px;border-top:1px solid rgba(255,255,255,.05);padding-top:8px}
+.lvtag2{font-size:clamp(6px,1.5vw,8px);letter-spacing:.18em;text-transform:uppercase;margin-bottom:3px;font-weight:400}
+.lvpot{font-size:clamp(9px,2.2vw,11px);font-weight:300;letter-spacing:.03em}
+
+/* Warnings and gap */
+.rwarn{
+  border:1px solid rgba(255,80,80,.25);padding:14px 16px;margin-bottom:14px;
+  font-size:clamp(12px,3.2vw,14px);color:rgba(255,165,165,.88);
+  line-height:1.75;background:rgba(255,50,50,.03);
+}
+.rfoc{border:1px solid rgba(91,184,255,.2);padding:clamp(16px,4vw,22px);margin-bottom:14px;background:rgba(5,12,28,.35)}
+.rfoclb{font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:rgba(91,184,255,.95);margin-bottom:8px;font-weight:400}
+.rfocnm{font-size:clamp(17px,4.5vw,24px);font-weight:200;color:#fff;margin-bottom:6px}
+.rfocpc{font-size:13px;margin-bottom:8px}
+.rfocds{font-size:clamp(13px,3.3vw,15px);color:rgba(232,232,232,.92);line-height:1.88}
+.rgap{border:1px solid rgba(255,196,77,.2);padding:clamp(16px,4vw,22px);margin-bottom:14px;background:rgba(255,196,77,.025)}
+.rgaplb{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,196,77,.9);margin-bottom:8px;font-weight:400}
+.rgaptl{font-size:clamp(15px,3.8vw,21px);font-weight:200;color:rgba(255,210,100,.92);margin-bottom:8px}
+.rgapds{font-size:clamp(13px,3.3vw,14px);color:rgba(232,232,232,.88);line-height:1.85}
+
+/* ── MAIN CTA — PROMINENT ── */
+.rcta-main{
+  padding:clamp(22px,5vw,36px) clamp(16px,4vw,28px);
+  text-align:center;margin-bottom:18px;
+  position:relative;overflow:hidden;
+}
+.rcta-main::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(91,184,255,.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.rctalb{font-size:8px;letter-spacing:.42em;text-transform:uppercase;margin-bottom:8px;font-weight:400;display:block}
+.rctatl{font-size:clamp(15px,4vw,22px);font-weight:200;color:#fff;margin-bottom:6px;line-height:1.3}
+.rctasc{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(13px,3.2vw,15px);font-style:italic;letter-spacing:.06em;margin-bottom:6px;opacity:.72}
+.rctand{font-size:clamp(10px,2.5vw,11px);color:rgba(255,255,255,.38);margin-bottom:24px;font-style:italic}
+
+/* THE MAIN CTA BUTTON */
+.cta-primary{
+  display:block;width:100%;
+  padding:clamp(16px,4vw,20px) 20px;
+  background:linear-gradient(135deg,rgba(91,184,255,.16) 0%,rgba(91,184,255,.07) 100%);
+  border:1px solid rgba(91,184,255,.5);
+  color:#5bb8ff;
+  font-family:inherit;font-size:clamp(9px,2.4vw,12px);font-weight:400;
+  letter-spacing:.45em;text-transform:uppercase;text-decoration:none;
+  text-align:center;cursor:pointer;
+  transition:all .35s ease;
+  position:relative;overflow:hidden;
+  margin-bottom:12px;
+}
+.cta-primary:hover{
+  background:linear-gradient(135deg,rgba(91,184,255,.26) 0%,rgba(91,184,255,.12) 100%);
+  border-color:rgba(91,184,255,.82);color:#fff;
+  box-shadow:0 0 40px rgba(91,184,255,.18),0 0 80px rgba(91,184,255,.07);
+}
+.cta-arrow{display:inline-block;margin-left:10px;transition:transform .25s}
+.cta-primary:hover .cta-arrow{transform:translateX(4px)}
+.gsep{height:1px;background:rgba(255,255,255,.08);margin:22px 0}
+
+/* ── FOOTER ACTIONS ── */
+.rfooter{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.fbt-pdf{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:18px 16px;background:transparent;border:none;color:#5bb8ff;font-size:9px;letter-spacing:.38em;text-transform:uppercase;cursor:pointer;font-family:inherit;font-weight:400;transition:color .25s;border-bottom:1px solid rgba(91,184,255,.15)}
+.fbt-pdf:hover{color:#7ecfff;border-bottom-color:rgba(91,184,255,.38)}
+.fbt-restart{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:16px;background:transparent;border:none;color:rgba(232,232,232,.3);font-size:8px;letter-spacing:.35em;text-transform:uppercase;cursor:pointer;font-family:inherit;font-weight:300;transition:color .25s}
+.fbt-restart:hover{color:rgba(232,232,232,.6)}
+
+/* ── PDF/SEND MODAL ── */
+.pdf-modal-ov{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.9);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:clamp(16px,4vw,24px)}
+.pdf-modal-ov.on{opacity:1;pointer-events:all}
+.pdf-modal-box{width:100%;max-width:420px;background:#090e1a;border:1px solid rgba(91,184,255,.2);padding:clamp(24px,5vw,36px) clamp(20px,5vw,30px);position:relative;max-height:90vh;overflow-y:auto}
+.pdf-modal-x{position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;color:rgba(91,184,255,.4);font-size:20px;font-family:inherit;line-height:1;transition:color .2s}
+.pdf-modal-x:hover{color:rgba(91,184,255,.9)}
+.pdf-modal-ey{font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:rgba(91,184,255,.55);margin-bottom:10px;font-weight:400}
+.pdf-modal-ttl{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(17px,4vw,21px);font-style:italic;color:rgba(244,244,244,.92);margin-bottom:20px;line-height:1.3}
+.send-block{margin-bottom:4px}
+.send-block-lbl{font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:rgba(91,184,255,.82);margin-bottom:10px;display:flex;align-items:center;gap:8px;font-weight:400}
+.send-row{display:flex;gap:8px}
+.send-input{flex:1;padding:12px 14px;background:rgba(5,14,32,.9);border:1px solid rgba(91,184,255,.2);color:#e8e8e8;font-family:inherit;font-size:clamp(13px,3.2vw,14px);font-weight:300;outline:none;transition:border-color .2s;-webkit-appearance:none;min-width:0}
+.send-input:focus{border-color:rgba(91,184,255,.5)}
+.send-input::placeholder{color:rgba(220,232,248,.28);font-size:13px}
+.send-go{padding:12px 14px;background:rgba(91,184,255,.14);border:1px solid rgba(91,184,255,.38);color:#5bb8ff;font-family:inherit;font-size:9px;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0}
+.send-go:hover{background:rgba(91,184,255,.24);border-color:rgba(91,184,255,.7)}
+.send-hint{font-size:11px;min-height:16px;margin-top:8px;letter-spacing:.04em}
+.send-divider{height:1px;background:rgba(255,255,255,.07);margin:16px 0}
+.send-desc{font-size:clamp(12px,3vw,13px);color:rgba(220,232,248,.55);margin-bottom:12px;line-height:1.6}
+.send-wa{width:100%;padding:14px;background:rgba(77,255,184,.07);border:1px solid rgba(77,255,184,.25);color:#4dffb8;font-family:inherit;font-size:9px;letter-spacing:.38em;text-transform:uppercase;cursor:pointer;transition:all .25s}
+.send-wa:hover{background:rgba(77,255,184,.15);border-color:rgba(77,255,184,.5)}
+.send-status{font-size:11px;text-align:center;min-height:16px;margin-top:12px;letter-spacing:.07em}
+
+/* ── BREAK SCREEN ── */
+.brkbdy{max-width:400px;width:100%;padding:0 clamp(0px,2vw,16px)}
+.bsym{font-size:36px;color:#5bb8ff;margin-bottom:10px}
+.bnm{font-size:clamp(26px,7vw,44px);font-weight:100;color:#fff;margin-bottom:6px;letter-spacing:.06em}
+.bsb{font-size:9px;letter-spacing:.42em;text-transform:uppercase;color:rgba(91,184,255,.7);margin-bottom:16px;font-weight:400}
+.bds{font-size:clamp(13px,3.3vw,14px);line-height:1.82;color:rgba(232,232,232,.78);margin-bottom:28px}
+.bcnt{padding:13px clamp(24px,5vw,36px);background:transparent;border:1px solid #5bb8ff;color:#5bb8ff;font-size:9px;letter-spacing:.4em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:all .3s}
+.bcnt:hover{background:#5bb8ff;color:#000}
+
+/* ── TABLET & DESKTOP ── */
+@media(min-width:600px){
+  .rlvg{gap:12px}
+  .lvnm{font-size:8px;letter-spacing:.28em}
+  .lvzn{font-size:8px}
+  .lvtag2{font-size:8px}
+}
+@media(min-width:768px){
+  .qbdy{padding:44px 36px 32px}
+  .progress-wrap{padding:12px 28px 8px}
+  #result{padding:56px 36px 80px}
+}
+@media(min-width:1024px){
+  .intro-inner{max-width:520px}
+  #result{max-width:720px}
+  .qbdy{max-width:660px}
+}
+
+/* Prevent tiny screens from breaking layout */
+@media(max-width:360px){
+  .rlvg{grid-template-columns:repeat(3,1fr);gap:5px}
+  .lvpct{font-size:20px}
+  .lvnm,.lvzn,.lvtag2{font-size:6px;letter-spacing:.12em}
+  .lvpot{font-size:9px}
+  .result-compare{gap:6px;padding:12px 10px}
+  .cmp-val{font-size:20px}
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fu .4s ease forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes triSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes optPulse{0%{box-shadow:0 0 0 0 rgba(91,184,255,.4)}50%{box-shadow:0 0 0 6px rgba(91,184,255,0)}100%{box-shadow:0 0 0 0 rgba(91,184,255,0)}}
+.opt.pulse{animation:optPulse .35s ease}
+
+/* ── WA MICRO-OVERLAY ── */
+.wa-ov{position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;background:rgba(0,0,0,.88);backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s;min-height:100%;}
+.wa-ov.on{opacity:1;pointer-events:all}
+.wa-box{width:100%;max-width:360px;background:#090e1a;border:1px solid rgba(91,184,255,.18);padding:36px 28px 28px;text-align:center;animation:fadeUp .35s ease both}
+.wa-tri{font-size:22px;color:rgba(91,184,255,.55);margin-bottom:16px;letter-spacing:.1em}
+.wa-ttl{font-size:clamp(15px,4vw,20px);font-weight:200;color:#fff;margin-bottom:8px;letter-spacing:.04em}
+.wa-sub{font-size:clamp(12px,3vw,14px);color:rgba(220,232,248,.55);line-height:1.65;margin-bottom:28px;letter-spacing:.01em}
+.wa-go{display:block;width:100%;padding:16px 20px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.4);color:#25d366;font-family:inherit;font-size:10px;font-weight:400;letter-spacing:.42em;text-transform:uppercase;cursor:pointer;transition:all .25s;margin-bottom:10px;text-decoration:none;text-align:center;box-sizing:border-box;}
+.wa-go:hover{background:rgba(37,211,102,.2);border-color:rgba(37,211,102,.7)}
+.wa-cancel{background:none;border:none;color:rgba(255,255,255,.22);font-family:inherit;font-size:9px;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;padding:8px;transition:color .2s}
+.wa-cancel:hover{color:rgba(255,255,255,.5)}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro" class="scr pg" style="background:radial-gradient(ellipse 80% 55% at 50% 0%,rgba(14,47,82,.95) 0%,transparent 58%),#0d0d0d">
+  <div class="intro-inner">
+
+    <div class="intro-tri-anim">
+      <svg viewBox="0 0 120 108" width="80" height="72" fill="none" class="intro-svg-tri">
+        <!-- outer triangle: gradient stroke per vertex -->
+        <defs>
+          <linearGradient id="triGrad" x1="60" y1="3" x2="3" y2="105" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#f0a844"/>
+            <stop offset="50%" stop-color="#4dd9ff"/>
+            <stop offset="100%" stop-color="#a374f7"/>
+          </linearGradient>
+        </defs>
+        <polygon points="60,3 117,105 3,105" stroke="url(#triGrad)" stroke-width="1.4" fill="rgba(91,184,255,0.03)" stroke-linejoin="round"/>
+        <polygon points="60,22 98,89 22,89" stroke="rgba(255,255,255,.18)" stroke-width="0.6" fill="none" stroke-linejoin="round"/>
+        <!-- vertex dots: top=energy(amber), bottom-left=body(cyan), bottom-right=mind(purple) -->
+        <circle cx="60" cy="3" r="2.5" fill="#f0a844" fill-opacity="0.8"/>
+        <circle cx="3" cy="105" r="2.5" fill="#4dd9ff" fill-opacity="0.8"/>
+        <circle cx="117" cy="105" r="2.5" fill="#a374f7" fill-opacity="0.8"/>
+        <circle cx="60" cy="68" r="1.8" fill="rgba(255,255,255,0.3)"/>
+      </svg>
+    </div>
+
+    <div class="intro-eyebrow">△ Диагностика</div>
+    <div class="intro-title">IMPULSE</div>
+    <div class="intro-scan">SCAN</div>
+    <div class="intro-tagline">3 уровня. 1 система. 1 результат.</div>
+
+    <div class="intro-divider"></div>
+    <div class="intro-meta">30 вопросов · ~5 минут</div>
+    <div class="intro-divider"></div>
+
+    <p class="intro-quote-line">Ты не можешь изменить результат,<br>пока не видишь своё состояние.</p>
+
+    <div class="intro-divider"></div>
+
+    <!-- Prev result banner -->
+    <div id="prevBanner" class="prev-banner" style="display:none">
+      <div class="prev-banner-l">
+        <div class="prev-banner-lbl">Предыдущий результат</div>
+        <div class="prev-banner-val" id="prevBannerVal"></div>
+      </div>
+      <button class="prev-banner-r" onclick="clearPrev()">Сбросить</button>
+    </div>
+
+    <div class="intro-what">
+      <div class="intro-what-lbl">Что ты узнаешь</div>
+      <div class="intro-item"><span class="intro-dot"></span>Твоё реальное состояние</div>
+      <div class="intro-item"><span class="intro-dot"></span>Где теряется энергия</div>
+      <div class="intro-item"><span class="intro-dot"></span>Что создаёт напряжение</div>
+      <div class="intro-item"><span class="intro-dot"></span>Баланс трёх уровней</div>
+      <div class="intro-item"><span class="intro-dot"></span>Точку, с которой начинается рост</div>
+    </div>
+
+    <div class="intro-levels">
+      <div class="intro-level body-l">&#9651; Тело</div>
+      <div class="intro-level mind-l">&#9651; Сознание</div>
+      <div class="intro-level energy-l">&#9651; Энергия</div>
+    </div>
+
+    <button class="btn intro-btn" id="startBtn" onclick="startQuiz()">Начать диагностику</button>
+    <div class="note" id="resumeNote" style="display:none">
+      <span style="color:rgba(91,184,255,.6)">△</span> Найден незавершённый тест — продолжить?
+      &nbsp;<span style="cursor:pointer;text-decoration:underline;color:rgba(91,184,255,.55)" onclick="resumeQuiz()">Да, продолжить</span>
+      &nbsp;·&nbsp;<span style="cursor:pointer;color:rgba(255,255,255,.3)" onclick="startQuiz()">Начать заново</span>
+    </div>
+    <div class="note" id="defaultNote">≈ 5 минут &nbsp;·&nbsp; 30 вопросов</div>
+
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="scr">
+  <div class="qhdr">
+    <div class="qlogo">&#9651; IMPULSE</div>
+  </div>
+  <!-- Progress bar: category label + dashed pips ONLY here, no duplicate -->
+  <div class="progress-wrap">
+    <div class="progress-cat-label">
+      <span class="cat-name" id="catLabel">Тело · 1/10</span>
+      <span id="qCnt" style="color:rgba(255,255,255,.28)">1 / 30</span>
+    </div>
+    <div class="pips-row" id="pipsRow"></div>
+  </div>
+  <div id="qB"></div>
+</div>
+
+<!-- RESULT -->
+<div id="result" class="scr"></div>
+
+<!-- SEND MODAL -->
+<div class="pdf-modal-ov" id="pdfModal">
+  <div class="pdf-modal-box">
+    <button class="pdf-modal-x" onclick="closePdfModal()">&#10005;</button>
+    <div class="pdf-modal-ey">Результаты диагностики</div>
+    <div class="pdf-modal-ttl">Отправить результат</div>
+
+    <div class="send-block" id="emailBlock">
+      <div class="send-block-lbl">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="2.5" width="12" height="9" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M1 4.5l6 4 6-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        На почту
+      </div>
+      <div class="send-row">
+        <input class="send-input" type="email" id="emailVal" placeholder="твоя@почта.ru" autocomplete="email">
+        <button class="send-go" onclick="doSendEmail()">Отправить</button>
+      </div>
+      <div class="send-hint" id="emailHint"></div>
+    </div>
+
+    <div class="send-divider"></div>
+
+    <div class="send-block">
+      <div class="send-block-lbl">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 12.5l1.3-3.8A5.5 5.5 0 1 1 5 10.7L1.5 12.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        В WhatsApp
+      </div>
+      <div class="send-desc">Полный результат отправится в чат</div>
+      <button class="send-wa" onclick="doSendWA()">Открыть WhatsApp</button>
+    </div>
+
+    <div id="sendStatus" class="send-status"></div>
+  </div>
+</div>
+
+<!-- WA MICRO-OVERLAY -->
+<div class="wa-ov" id="waOverlay">
+  <div class="wa-box">
+    <div class="wa-tri">△</div>
+    <div class="wa-ttl">Переходим в WhatsApp</div>
+    <div class="wa-sub">Дима получит твой результат<br>и напишет в течение 24 часов</div>
+    <a href="https://wa.me/message/7BG5K6XMTZ34C1" class="wa-go" id="waGoBtn" target="_blank" rel="noopener">△ &nbsp;IMPULSE</a>
+    <button class="wa-cancel" onclick="document.getElementById('waOverlay').classList.remove('on')">Отмена</button>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────────────────────────
+var QS=[
+  {id:1, lv:'body',  key:1,so:1,t:'Как часто ты чувствуешь усталость или нехватку энергии?'},
+  {id:2, lv:'body',  key:0,so:1,t:'Как часто тебе не хватает физической активности в течение дня?'},
+  {id:3, lv:'body',  key:1,so:1,t:'Как часто ты чувствуешь мышечное напряжение в шее, плечах или спине?'},
+  {id:4, lv:'body',  key:0,so:1,t:'Как часто у тебя бывают головные боли или ощущение тяжести в голове?'},
+  {id:5, lv:'body',  key:0,so:1,t:'Как часто ты замечаешь дискомфорт в теле без явной физической причины?'},
+  {id:6, lv:'body',  key:0,so:1,t:'Как часто ты чувствуешь напряжение в пояснице?'},
+  {id:7, lv:'body',  key:1,so:1,t:'Как часто ты замечаешь поверхностное или напряжённое дыхание?'},
+  {id:8, lv:'body',  key:1,so:1,t:'Как часто у тебя бывают спазмы в животе или дискомфорт в пищеварении?'},
+  {id:9, lv:'body',  key:1,so:1,t:'Как часто тебе сложно уснуть или ты просыпаешься ночью?'},
+  {id:10,lv:'body',  key:0,so:1,t:'Как часто в течение дня ты чувствуешь резкие спады энергии?'},
+  {id:11,lv:'mind',  key:1,so:1,t:'Как часто ты сдерживаешь эмоции вместо того, чтобы проживать или выражать их?'},
+  {id:12,lv:'mind',  key:0,so:1,t:'Как часто ты действуешь из чувства «надо», а не «хочу»?'},
+  {id:13,lv:'mind',  key:0,so:1,t:'Как часто ты замечаешь у себя повторяющиеся эмоциональные реакции?'},
+  {id:14,lv:'mind',  key:1,so:1,t:'Как часто ты чувствуешь, что не можешь расслабиться и отпустить контроль?'},
+  {id:15,lv:'mind',  key:1,so:1,t:'Как часто ты ловишь себя на внутренней самокритике?'},
+  {id:16,lv:'mind',  key:1,so:1,t:'Как часто ты замечаешь, что не можешь остановить мысли, даже когда хочешь расслабиться?'},
+  {id:17,lv:'mind',  key:0,so:1,t:'Как часто ты откладываешь важные дела, даже понимая, что они нужны?'},
+  {id:18,lv:'mind',  key:0,so:1,t:'Как часто стресс выбивает тебя из равновесия?'},
+  {id:19,lv:'mind',  key:0,so:1,t:'Как часто ты чувствуешь сомнения и недоверие в себе и к людям вокруг?'},
+  {id:20,lv:'mind',  key:1,so:1,t:'Как часто ты реагируешь автоматически, не замечая этого в моменте?'},
+  {id:21,lv:'energy',key:1,so:0,t:'Как часто ты ощущаешь внутреннюю наполненность и вдохновение без внешних причин?'},
+  {id:22,lv:'energy',key:0,so:0,t:'Как часто ты чувствуешь интерес и вовлечённость в том, что делаешь?'},
+  {id:23,lv:'energy',key:1,so:0,t:'Как часто ты чувствуешь контакт с собой и своими ощущениями?'},
+  {id:24,lv:'energy',key:0,so:0,t:'Как часто ты замечаешь, что живёшь осознанно, а не на автомате?'},
+  {id:25,lv:'energy',key:0,so:0,t:'Как часто ты позволяешь себе просто быть в тишине без задач и стимулов?'},
+  {id:26,lv:'energy',key:1,so:0,t:'Как часто ты воспринимаешь происходящее в своей жизни как справедливое и закономерное?'},
+  {id:27,lv:'energy',key:0,so:0,t:'Как часто ты позволяешь ситуациям разворачиваться без попытки всё контролировать?'},
+  {id:28,lv:'energy',key:1,so:0,t:'Как часто ты ощущаешь внутреннее согласие с собой и жизнью?'},
+  {id:29,lv:'energy',key:0,so:0,t:'Как часто ты сохраняешь удовольствие от процесса, не фокусируясь только на результате?'},
+  {id:30,lv:'energy',key:1,so:0,t:'Как часто ты сохраняешь внутреннее спокойствие и доверие, даже когда нет ясности?'}
+];
+
+var SO=[{l:'Никогда',v:100},{l:'Редко',v:80},{l:'Иногда',v:52},{l:'Часто',v:28},{l:'Всегда',v:10}];
+var RO=[{l:'Никогда',v:10},{l:'Редко',v:20},{l:'Иногда',v:52},{l:'Часто',v:72},{l:'Всегда',v:100}];
+var LI={
+  body:  {n:'Тело',    sub:'Фундамент',    num:'1',color:'var(--c-body)'},
+  mind:  {n:'Сознание',sub:'Мировосприятие',num:'2',color:'var(--c-mind)'},
+  energy:{n:'Энергия', sub:'Целостность',   num:'3',color:'var(--c-energy)'}
+};
+
+// Per-category question counts
+var CAT_COUNTS={body:10,mind:10,energy:10};
+
+var BRK={
+  body:'Следующий блок — про физическое состояние тела · фундамент. Здесь мы смотрим на то, как тело держит и проявляет напряжение: качество сна, уровень энергии в течение дня, дыхание, мышечные зажимы и сигналы изнутри. Тело всегда говорит правду — задача услышать.',
+  mind:'Следующий блок — про внутренние реакции и мировосприятие. Эмоции, которые сдерживаются или вырываются; мысли, которые не останавливаются; паттерны, которые повторяются. Сознание — это фильтр, через который ты видишь реальность и принимаешь решения.',
+  energy:'Следующий блок — про целостность и внутренний ресурс. Не про силу воли и не про усталость. Про то, есть ли внутри ощущение смысла, согласия с собой и доверия к жизни. Энергия — это то, ради чего всё остальное работает.'
+};
+
+var FDESC={
+  body:'Тело — это первый уровень, который реагирует на дисбаланс. Оно накапливает напряжение тихо, годами, прежде чем это выходит в симптомы. Сигнал: к середине дня уже нет сил — даже если ничего особенного не происходило. Или сон есть, но отдыха нет. Или дышишь поверхностно весь день, не замечая этого. Именно через работу с физическим уровнем система начнёт выравниваться быстрее всего — потому что тело отвечает на изменения быстро, если знать, где именно работать.',
+  mind:'Сознание удерживает напряжение в виде мыслей, убеждений и паттернов поведения — и создаёт внутреннее сопротивление даже там, где его могло бы не быть. Сигнал: ложишься спать, но мысли не останавливаются. Или знаешь, что делать — но не делаешь. Или реагируешь на что-то резко, а потом сам удивляешься откуда это. Точечная работа с уровнем сознания разблокирует ресурс, который уже есть в системе — он просто заблокирован внутренними программами.',
+  energy:'Энергия — это не про физические силы. Это про наполненность изнутри: ощущение, что то, что ты делаешь — твоё; что есть смысл и направление. Системе не хватает внутреннего импульса. Сигнал: делаешь всё что нужно, но ощущения «зачем» — нет. Или вдохновение приходит вспышками, но не держится. Восстановление этого уровня даёт сдвиг во всём — в мотивации, в отношениях, в качестве решений и в том, как ощущается каждый день.'
+};
+
+var RANGES=[
+  {min:75,name:'Состояние потока',slug:'flow',c:'#ffd700',
+   interp:'Тело, сознание и энергия работают согласованно. Система находится в состоянии внутренней устойчивости и позволяет действовать из силы, а не из необходимости. Это редкое состояние — и его главная задача не ускориться, а жить в балансе.<br><br><span style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:rgba(91,184,255,.65);font-weight:400">△ ТЕЛО</span><br>Поддержание формы без выгорания. Баланс нагрузки и восстановления — это не компромисс, а стратегия. Физическое состояние становится ресурсом для всего остального.<br><br><span style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:rgba(91,184,255,.65);font-weight:400">△ СОЗНАНИЕ</span><br>Мысли не мешают — они направляют. Происходит сотворение реальности через баланс внутри. Внутренний диалог стал союзником и помощником — и это уже естественно встроено в каждый день.<br><br><span style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:rgba(91,184,255,.65);font-weight:400">△ ЭНЕРГИЯ</span><br>Ощущение доверия, благодарности и направления. Следующий уровень — не больше делать, а точнее: передавать опыт, создавать среду, в которой растут другие.',
+   nowTxt:'На этом уровне чаще присутствуют:',
+   nowList:['Энергия есть — и утром, и вечером','Решения принимаются без долгих сомнений','Действия ощущаются своими, а не вынужденными','Тело не мешает — оно поддерживает','Есть ощущение, что движешься в правильном направлении'],
+   sol:'Ты уже в том состоянии, к которому многие только идут. Главный вопрос теперь — не «как достичь», а «как удержать и куда направить». На этом уровне важно не дать системе откатиться незаметно: перегруз, новые цели, отношения — всё это может сдвинуть баланс. Стратегическая сессия поможет закрепить текущий уровень, найти следующую точку роста и разобраться — где именно ты хочешь создать сдвиг дальше.',
+   quote:'«Я вроде всего достиг — но что-то внутри спрашивает: а что дальше?»',
+   cta:{lb:'Следующий уровень',tl:'Ты в ресурсе — самое время двигаться дальше',sb:'Стратегическая сессия: удержание, масштаб, передача опыта',nt:'Не про восстановление. Про то, что становится возможным, когда система уже работает.',btn:'Хочу стратегическую сессию'},
+   mot:'Ты уже там, куда другие только идут. Теперь — про то, что дальше.'},
+
+  {min:60,name:'Укрепление баланса',slug:'balance',c:'#4dff9e',
+   interp:'Система работает устойчиво — есть ресурс, ясность и внутреннее направление. Отдельные зоны ещё создают сопротивление, но оно уже не разрушает — только притормаживает.<br><br><span style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:rgba(91,184,255,.65);font-weight:400">△ ТЕЛО</span><br>Момент для роста. Можно увеличивать интенсивность, добавлять игровые виды спорта, функциональные и интервальные тренировки. Тело готово к вызову — главное делать это грамотно, чтобы нагрузка усиливала систему, а не отнимала ресурс у сознания.<br><br><span style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:rgba(91,184,255,.65);font-weight:400">△ СОЗНАНИЕ</span><br>Мысли стали яснее, решения принимаются легче. Остаётся точечно убрать то, что незаметно создаёт внутреннее трение.<br><br><span style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:rgba(91,184,255,.65);font-weight:400">△ ЭНЕРГИЯ</span><br>Направление чувствуется — но иногда возникает ощущение, что можно больше. Это сигнал, что система готова к следующему уровню.',
+   nowTxt:'На этом уровне чаще присутствуют:',
+   nowList:['Внутренняя опора и стабильность','Больше контакта с собой','Решения принимаются легче','Энергия чаще доступна','Периодически — ощущение «чего-то не хватает»'],
+   sol:'Система уже работает — это важно признать. Следующий шаг не про восстановление, а про точную настройку: найти, где именно уходит ресурс, и убрать это сопротивление. Часто одно небольшое изменение на нужном уровне даёт ощутимый сдвиг во всём остальном.',
+   quote:'«Вроде всё нормально — но чувствую, что могу больше»',
+   cta:{lb:'Следующий шаг',tl:'Найдём, что мешает выйти на следующий уровень',sb:'Вводная консультация с разбором результата',nt:'Увидим точку роста и что уже работает — за один разговор.',btn:'Хочу разобрать свой результат'},
+   mot:'Система работает. Небольшая настройка — и следующий уровень близко.'},
+
+  {min:45,name:'Восстановление',slug:'recovery',c:'#ffc84d',
+   interp:'Система выходит из дисбаланса — но ещё не стабилизировалась. Ресурс появляется, но неравномерно: сегодня есть силы, завтра снова нет. Это не слабость — это сигнал, что тело и психика уже начали работу, но им нужна точка опоры.<br><br><span style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:rgba(91,184,255,.65);font-weight:400">△ ТЕЛО</span><br>Сейчас самое время строить фундамент. Добавляем лёгкую силовую, кардио с контролем пульса, регулярность без форсирования. Тело, которое двигается в правильном ритме, начинает поддерживать всё остальное.<br><br><span style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:rgba(91,184,255,.65);font-weight:400">△ СОЗНАНИЕ</span><br>Периодически появляется ясность — но она пока хрупкая. Поддержи себя правильным настроем, благодарностью и аффирмациями.<br><br><span style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:rgba(91,184,255,.65);font-weight:400">△ ЭНЕРГИЯ</span><br>Вдохновение приходит вспышками, но не держится. Задача не поймать его, а создать условия, при которых оно начнёт приходить чаще.',
+   nowTxt:'На этом уровне могут наблюдаться:',
+   nowList:['Колебания энергии в течение дня и недели','Периодическая ясность — но она пока нестабильна','Желание двигаться вперёд, но без стабильной почвы под ногами','Ощущение прогресса, который никак не закрепится'],
+   sol:'Главная задача сейчас — не добавлять новое, а закрепить то, что уже сдвинулось. Часто на этом этапе люди пробуют ускориться — и откатываются назад. Важно понять, какой уровень системы держит нестабильность: тело, сознание или энергия.',
+   quote:'«Иногда лучше — но потом снова накрывает. Не понимаю, в чём причина.»',
+   cta:{lb:'Важно закрепить',tl:'Поможем не откатиться назад',sb:'Консультация с фокусом на стабилизацию состояния',nt:'Ты уже сдвинулся. Разберём, что мешает сделать это стабильным.',btn:'Хочу закрепить восстановление'},
+   mot:'Движение уже есть. Теперь важно его не потерять.'},
+
+  {min:0,name:'Режим выживания',slug:'survival',c:'#ff5c5c',
+   interp:'Система работает в состоянии накопленного напряжения. Значительная часть энергии уходит на удержание внутреннего давления — тело, сознание и энергия перестают работать как единая опора. Даже простые действия требуют больше усилий, чем должны.<br><br><span style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:rgba(91,184,255,.65);font-weight:400">△ ТЕЛО</span><br>Приоритет сейчас — не нагрузка, а контакт. Снять зажимы, восстановить дыхание, почувствовать тело изнутри.<br><br><span style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:rgba(91,184,255,.65);font-weight:400">△ СОЗНАНИЕ</span><br>Мысли перегружены, эмоции сдавлены или вырываются неожиданно. Первый шаг — не разобраться со всем сразу, а снизить внутреннее давление и самокритику.<br><br><span style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:rgba(91,184,255,.65);font-weight:400">△ ЭНЕРГИЯ</span><br>Ощущения «зачем» почти нет. Это нормально на этом уровне — импульс вернётся, когда система немного выдохнет.',
+   nowTxt:'На этом уровне человек часто живёт через напряжение. Могут появляться:',
+   nowList:['Постоянная усталость','Напряжение в теле','Перегруженные мысли','Снижение мотивации','Ощущение нехватки энергии'],
+   sol:'Главный приоритет — восстановить базовый ресурс системы и убрать источник перегруза. Важно понять, на каком уровне находится основной дисбаланс: в теле, в сознании или в энергии.',
+   quote:'«Я понимаю, что нужно делать, но сил не хватает»',
+   cta:{lb:'Важно сделать сейчас',tl:'Разберём, откуда идёт перегруз',sb:'Вводная консультация — работаем с тем что есть',nt:'Это не про силу воли. Это про то, чтобы понять откуда идёт напряжение.',btn:'Хочу разобраться в своём состоянии и узнать первопричину'},
+   mot:'Ты уже сделал первый шаг — это начало трансформации.'}
+];
+
+var GAPS=[
+  {t:'Тело перегружено — Сознание активно',d:'Сознание стремится двигаться вперёд, но тело работает на пределе. Это похоже на движение с зажатым ручным тормозом — машина едет, но ценой огромного расхода топлива. Рано или поздно что-то одно сдаётся первым.',c:function(b,m,e){return b<m&&b<e&&m>e}},
+  {t:'Тело перегружено — Энергия высокая',d:'Энергия ощущается, есть желание действовать — но тело не успевает восстанавливаться. Это состояние называют дофаминовым кредитом: живёшь на энтузиазме сейчас, но тело выставит счёт позже.',c:function(b,m,e){return b<m&&b<e&&e>=m}},
+  {t:'Сознание перегружено — Тело в ресурсе',d:'Физически ты в порядке — силы есть, тело не болит. Но голова не останавливается даже когда тело уже лежит. Это как браузер с сотней открытых вкладок: технически работает, но всё тормозит.',c:function(b,m,e){return m<b&&m<e&&b>e}},
+  {t:'Сознание перегружено — Энергия высокая',d:'Есть вдохновение и желание двигаться — но внутренние ограничения, тревожные мысли и самокритика не дают реализовать его в полную силу. Хочешь бежать — но сам себя держишь за руку.',c:function(b,m,e){return m<b&&m<e&&e>=b}},
+  {t:'Энергия снижена — Тело в ресурсе',d:'Тело в ресурсе — батарея полная. Но энергия снижена: нет внутреннего «зачем». Это как мощный смартфон без сим-карты — он идеален технически, но отрезан от мира, ради которого создан.',c:function(b,m,e){return e<b&&e<m&&b>m}},
+  {t:'Энергия снижена — Сознание активно',d:'Голова работает: анализирует, строит планы, находит решения. Но сил воплощать их — не хватает. Много думаешь, мало делаешь — и это не лень и не слабость. Это сигнал: система работает вхолостую.',c:function(b,m,e){return e<b&&e<m&&m>=b}}
+];
+
+// ─────────────────────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────────────────────
+var cur=0,ans={},pendBrk=null;
+var LS_KEY_PROGRESS='impulse_scan_progress';
+var LS_KEY_RESULT='impulse_scan_last_result';
+
+// ─────────────────────────────────────────────────────────────────
+// LOCALSTORAGE
+// ─────────────────────────────────────────────────────────────────
+function saveProgress(){
+  try{localStorage.setItem(LS_KEY_PROGRESS,JSON.stringify({cur:cur,ans:ans,pendBrk:pendBrk}));}catch(e){}
+}
+function loadProgress(){
+  try{return JSON.parse(localStorage.getItem(LS_KEY_PROGRESS));}catch(e){return null;}
+}
+function clearProgress(){
+  try{localStorage.removeItem(LS_KEY_PROGRESS);}catch(e){}
+}
+function saveResult(data){
+  try{localStorage.setItem(LS_KEY_RESULT,JSON.stringify(data));}catch(e){}
+}
+function loadResult(){
+  try{return JSON.parse(localStorage.getItem(LS_KEY_RESULT));}catch(e){return null;}
+}
+function clearPrev(){
+  try{localStorage.removeItem(LS_KEY_RESULT);}catch(e){}
+  document.getElementById('prevBanner').style.display='none';
+}
+
+// ─────────────────────────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────────────────────────
+function show(id){
+  document.body.style.background='#0d0d0d';
+  document.documentElement.style.background='#0d0d0d';
+  ['intro','quiz','result'].forEach(function(s){document.getElementById(s).style.display='none';});
+  document.getElementById(id).style.display=(id==='result')?'block':'flex';
+  window.scrollTo(0,0);
+}
+function getOpts(q){return q.so?SO:RO;}
+function getRange(v){for(var i=0;i<RANGES.length;i++)if(v>=RANGES[i].min)return RANGES[i];return RANGES[3];}
+function getZone(v){return v>=75?{l:'Сильная зона',c:'#4dff9e'}:v>=58?{l:'Нейтральная зона',c:'#5bb8ff'}:{l:'Зона роста',c:'#ff5c5c'};}
+function getGi(b,m,e){for(var i=0;i<GAPS.length;i++)if(GAPS[i].c(b,m,e))return GAPS[i];return null;}
+function tagFor(v){return v>=75?'В потоке':v>=60?'Стабильно':v>=45?'В процессе':'Требует внимания';}
+function gapSt(g){return g>=30?'Высокий · требует внимания':'Заметный';}
+
+function calcScore(lv){
+  var qs=QS.filter(function(q){return q.lv===lv;}),ws=0,wt=0;
+  qs.forEach(function(q){
+    var w=q.key?1.5:1;
+    ws+=(ans[q.id]!=null?ans[q.id]:52)*w;
+    wt+=w;
+  });
+  return Math.round(Math.min(100,Math.max(0,ws/wt)));
+}
+
+// Per-category index of current question
+function catProgress(){
+  var lv=cur<QS.length?QS[cur].lv:'energy';
+  var total=CAT_COUNTS[lv];
+  var idx=0;
+  for(var i=0;i<=Math.min(cur,QS.length-1);i++){if(QS[i].lv===lv)idx++;}
+  return {lv:lv,idx:Math.min(idx,total),total:total};
+}
+
+// ─────────────────────────────────────────────────────────────────
+// COUNTER ANIMATION
+// ─────────────────────────────────────────────────────────────────
+function animateCount(el,target,duration,suffix,startFrom){
+  if(!el)return;
+  var from=startFrom||0,startTime=null;
+  duration=duration||900;
+  suffix=suffix||'%';
+  function step(ts){
+    try{
+      if(!startTime)startTime=ts;
+      var p=Math.min((ts-startTime)/duration,1);
+      var ease=1-Math.pow(1-p,3);
+      el.textContent=Math.round(from+(target-from)*ease)+suffix;
+      if(p<1)requestAnimationFrame(step);
+    }catch(e){}
+  }
+  requestAnimationFrame(step);
+}
+
+// ─────────────────────────────────────────────────────────────────
+// QUIZ FLOW
+// ─────────────────────────────────────────────────────────────────
+var _quizActive=false;
+window.addEventListener('beforeunload',function(e){
+  if(_quizActive){e.preventDefault();e.returnValue='Прогресс сохранён, но ты уйдёшь со страницы. Продолжить?';return e.returnValue;}
+});
+
+function startQuiz(){
+  cur=0;ans={};pendBrk='body';
+  clearProgress();
+  _quizActive=true;
+  show('quiz');
+  buildPips();
+  renderQ();
+}
+
+function resumeQuiz(){
+  var p=loadProgress();
+  if(!p){startQuiz();return;}
+  cur=p.cur;ans=p.ans;pendBrk=p.pendBrk;
+  _quizActive=true;
+  show('quiz');
+  buildPips();
+  renderQ();
+}
+
+function renderQ(){
+  if(pendBrk){renderBrk(pendBrk);pendBrk=null;return;}
+  var q=QS[cur],T=QS.length,opts=getOpts(q),info=LI[q.lv],sel=ans[q.id];
+  var cp=catProgress();
+
+  // Update header labels
+  var catLabel=document.getElementById('catLabel');
+  var qCnt=document.getElementById('qCnt');
+  if(catLabel){
+    catLabel.textContent=info.n+' · '+cp.idx+'/'+cp.total;
+    catLabel.style.color=info.color;
+  }
+  if(qCnt)qCnt.textContent=(cur+1)+' / '+T;
+  updatePips();
+  saveProgress();
+
+  var h='<div class="qbdy fu">'
+    +'<div class="qnum">Вопрос '+q.id+' из '+T+'&nbsp;·&nbsp;<span style="color:'+info.color+';letter-spacing:.3em">'+info.n.toUpperCase()+' · '+info.sub.toUpperCase()+'</span></div>'
+    +'<div class="qtxt">'+q.t+'</div>'
+    +'<div class="opts">';
+  for(var i=0;i<opts.length;i++){
+    var o=opts[i];
+    h+='<button class="opt'+(sel===o.v?' sel':'')+'" onclick="pick('+o.v+',this)">'
+      +'<span class="olttr">'+String.fromCharCode(65+i)+'</span>'
+      +'<span>'+o.l+'</span></button>';
+  }
+  h+='</div><div class="qnav">'
+    +'<button class="bbck" onclick="goBack()">← Назад</button>'
+    +'<button class="bnxt'+(sel!==undefined?' rdy':'')+'" id="nB" onclick="goNext()">'
+    +(cur===T-1?'Результат →':'Далее →')+'</button></div>'
+    +'<div class="khint">Клавиши 1–5 · Enter для продолжения</div></div>';
+  document.getElementById('qB').innerHTML=h;
+}
+
+function pick(v,btn){
+  ans[QS[cur].id]=v;
+  document.querySelectorAll('.opt').forEach(function(b){b.classList.remove('sel','pulse');});
+  btn.classList.add('sel','pulse');
+  setTimeout(function(){btn.classList.remove('pulse');},350);
+  var nb=document.getElementById('nB');
+  if(nb)nb.classList.add('rdy');
+  setTimeout(goNext,300);
+}
+
+function goBack(){if(cur>0){cur--;saveProgress();renderQ();}}
+
+function goNext(){
+  if(ans[QS[cur].id]===undefined)return;
+  var pl=QS[cur].lv;
+  cur++;
+  if(cur>=QS.length){clearProgress();compute();return;}
+  if(QS[cur].lv!==pl)pendBrk=QS[cur].lv;
+  saveProgress();
+  renderQ();
+}
+
+document.addEventListener('keydown',function(e){
+  if(document.getElementById('quiz').style.display==='none')return;
+  if(pendBrk)return;
+  var map={'1':0,'2':1,'3':2,'4':3,'5':4,'a':0,'b':1,'c':2,'d':3,'e':4};
+  var k=e.key.toLowerCase();
+  if(k in map){var o=document.querySelectorAll('.opt');if(o[map[k]])o[map[k]].click();}
+  if(k==='enter'||k===' ')goNext();
+  if(k==='arrowleft'||k==='backspace')goBack();
+});
+
+function renderBrk(lv){
+  var info=LI[lv],T=QS.length;
+  document.getElementById('qCnt').textContent=(cur+1)+' / '+T;
+  var catLabel=document.getElementById('catLabel');
+  if(catLabel){catLabel.textContent=info.n;catLabel.style.color=info.color;}
+  updatePips();
+  document.getElementById('qB').innerHTML='<div class="pg fu" style="flex:1"><div class="brkbdy">'
+    +'<div class="bsym">△</div><div class="bnm">'+info.n+'</div>'
+    +'<div class="bsb">'+info.sub+'&nbsp;·&nbsp;Уровень '+info.num+'</div>'
+    +'<div class="bds">'+BRK[lv]+'</div>'
+    +'<button class="bcnt" onclick="renderQ()">Продолжить</button></div></div>';
+}
+
+// ─────────────────────────────────────────────────────────────────
+// PIPS — dashed, color by category
+// ─────────────────────────────────────────────────────────────────
+function buildPips(){
+  var row=document.getElementById('pipsRow');
+  if(!row)return;
+  row.innerHTML='';
+  // Add gap elements between categories to create "dashed" visual
+  var lastLv=null;
+  for(var i=0;i<QS.length;i++){
+    if(lastLv&&QS[i].lv!==lastLv){
+      // category divider — tiny gap
+      var gap=document.createElement('div');
+      gap.style.cssText='width:6px;height:2px;flex-shrink:0;background:transparent';
+      row.appendChild(gap);
+    }
+    var d=document.createElement('div');
+    d.className='pip';
+    d.id='pip_'+i;
+    row.appendChild(d);
+    lastLv=QS[i].lv;
+  }
+}
+
+function updatePips(){
+  for(var i=0;i<QS.length;i++){
+    var pip=document.getElementById('pip_'+i);
+    if(!pip)continue;
+    var lv=QS[i].lv;
+    if(i<cur)pip.className='pip pip-'+lv+'-done';
+    else if(i===cur)pip.className='pip pip-'+lv+'-cur';
+    else pip.className='pip';
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────
+// COMPUTE RESULT
+// ─────────────────────────────────────────────────────────────────
+function lerp(p,q,t){return [(p[0]+(q[0]-p[0])*t).toFixed(1),(p[1]+(q[1]-p[1])*t).toFixed(1)];}
+function pt(a){return a[0]+','+a[1];}
+
+function compute(){
+  var b=calcScore('body'),m=calcScore('mind'),e=calcScore('energy');
+  var idx=Math.round((b+m+e)/3);
+  var gapN=Math.max(b,m,e)-Math.min(b,m,e);
+  var lvs=[{k:'body',l:'Тело',v:b},{k:'mind',l:'Сознание',v:m},{k:'energy',l:'Энергия',v:e}];
+  var focus=lvs.reduce(function(a,c){return a.v<=c.v?a:c;});
+  var lowLvs=lvs.filter(function(l){return l.v<=45;});
+  var rng=getRange(idx),gi=getGi(b,m,e);
+
+  // Load previous result
+  var prev=loadResult();
+  // Save current
+  saveResult({idx:idx,b:b,m:m,e:e,name:rng.name,ts:Date.now()});
+
+  var cx=140,cy=135,T=[140,18],BL=[18,198],BR=[262,198];
+  var iT=lerp([cx,cy],T,e/100),iBL=lerp([cx,cy],BL,b/100),iBR=lerp([cx,cy],BR,m/100);
+
+  var nowH=rng.nowList
+    ?'<div class="ribnw">'+rng.nowTxt+'</div><ul class="ribli">'+rng.nowList.map(function(i){return '<li>'+i+'</li>';}).join('')+'</ul>'
+    :'<div class="ribnw">'+rng.nowTxt+'</div>';
+
+  var lvgrid=lvs.map(function(lv){
+    var z=getZone(lv.v),pot=100-lv.v;
+    return '<div class="rlv'+(lv.k===focus.k?' fc':'')+'"><div class="lvico">△</div>'
+      +'<div class="lvnm">'+lv.l+'</div>'
+      +'<div class="lvpct count-lv" id="cnt_'+lv.k+'" style="color:'+z.c+'">0%</div>'
+      +'<div class="lvbar"><div class="lvbf" id="bar_'+lv.k+'" style="width:0%;background:'+z.c+'"></div></div>'
+      +'<div class="lvzn" style="color:'+z.c+'">'+z.l+'</div>'
+      +'<div class="lvbot"><div class="lvtag2" style="color:'+z.c+'">'+tagFor(lv.v)+'</div>'
+      +'<div class="lvpot" style="color:'+z.c+'">потенциал +'+pot+'%</div></div></div>';
+  }).join('');
+
+  var warnH=lowLvs.length?'<div class="rwarn">⚠ '
+    +(lowLvs.length>=2
+      ?'Дисбаланс на уровнях: <strong>'+lowLvs.map(function(l){return l.l;}).join(', ')+'</strong>. Рекомендуется комплексная настройка системы.'
+      :'Выраженный дисбаланс на уровне: <strong>'+lowLvs[0].l+'</strong> ('+lowLvs[0].v+'%). Этот уровень ограничивает работу всей системы.')
+    +'</div>':'';
+
+  var gapH=(gapN>=20&&gi)?'<div class="rgap">'
+    +'<div class="rgaplb">Разрыв между уровнями · '+gapN+' пунктов · '+gapSt(gapN)+'</div>'
+    +'<div class="rgapds" style="margin-bottom:14px;color:rgba(232,232,232,.55)">Уровни системы работают неравномерно. Вот как это проявляется:</div>'
+    +'<div class="rgaptl">'+gi.t+'</div>'
+    +'<div class="rgapds">'+gi.d+'</div></div>':'';
+
+  var fz=getZone(focus.v),C=rng.cta;
+  var bc='border:1px solid '+rng.c+'44',bg='background:'+rng.c+'08';
+
+  // Previous result comparison block
+  var compareH='';
+  if(prev&&prev.idx!==undefined){
+    var diff=idx-prev.idx;
+    var diffColor=diff>0?'#4dff9e':diff<0?'#ff5c5c':'rgba(255,255,255,.4)';
+    var diffStr=(diff>0?'+':'')+diff+'%';
+    var diffLabel=diff>0?'Прогресс':diff<0?'Снижение':'Без изменений';
+    compareH='<div class="result-compare">'
+      +'<div class="cmp-side"><div class="cmp-lbl">Прошлый раз</div>'
+      +'<div class="cmp-val" style="color:rgba(255,255,255,.35)">'+prev.idx+'%</div>'
+      +'<div class="cmp-sub">'+prev.name+'</div></div>'
+      +'<div style="text-align:center"><div class="cmp-arrow">→</div>'
+      +'<div class="cmp-diff" style="color:'+diffColor+'">'+diffStr+'</div>'
+      +'<div style="font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:'+diffColor+';opacity:.7">'+diffLabel+'</div></div>'
+      +'<div class="cmp-side"><div class="cmp-lbl">Сейчас</div>'
+      +'<div class="cmp-val" style="color:'+rng.c+'">'+idx+'%</div>'
+      +'<div class="cmp-sub">'+rng.name+'</div></div>'
+      +'</div>';
+  }
+
+  document.getElementById('result').innerHTML='<div class="fu">'
+    +'<div class="rl">△ IMPULSE Scan · Результат диагностики</div>'
+    +compareH
+    +'<div class="rlbl">Общее состояние системы</div>'
+    +'<div class="rnum" id="cntMain" style="color:'+rng.c+'">0%</div>'
+    +'<div class="rname">'+rng.name+'</div>'
+    +'<div class="score-tri">'
+    +'<svg viewBox="0 0 120 108" width="80" height="72" fill="none">'
+    +'<polygon points="60,4 116,104 4,104" stroke="'+rng.c+'" stroke-width="1.5" fill="'+rng.c+'" fill-opacity="0.1" stroke-linejoin="round"/>'
+    +'<polygon points="60,22 98,89 22,89" stroke="'+rng.c+'" stroke-width="0.7" fill="none" stroke-opacity="0.4" stroke-linejoin="round"/>'
+    +'</svg></div>'
+    // MOTIVATIONAL QUOTE — elevated, Cormorant
+    +'<div class="rmot-top">'+rng.mot+'</div>'
+    +'<div class="ribox"><div class="lbl">Что это значит</div>'
+    +'<div class="ribmn">'+rng.interp+'</div>'+nowH
+    +(rng.quote?'<div class="ribqt">'+rng.quote+'</div>':'')
+    +'<div class="rsep"></div><div class="lbl" style="margin-bottom:8px">Что делать</div>'
+    +'<div class="ribsl">'+rng.sol+'</div></div>'
+    +'<div class="rtri"><svg viewBox="0 0 280 216">'
+    +'<defs><radialGradient id="rg" cx="50%" cy="62%" r="55%"><stop offset="0%" stop-color="'+rng.c+'" stop-opacity=".14"/><stop offset="100%" stop-color="'+rng.c+'" stop-opacity="0"/></radialGradient></defs>'
+    +'<polygon points="'+pt(T)+' '+pt(BL)+' '+pt(BR)+'" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1.2"/>'
+    +'<polygon points="'+pt(iT)+' '+pt(iBL)+' '+pt(iBR)+'" fill="url(#rg)" stroke="'+rng.c+'" stroke-width="1.3" stroke-linejoin="round" opacity=".92"/>'
+    +'<circle cx="'+T[0]+'" cy="'+T[1]+'" r="4" fill="#0a0a0a" stroke="rgba(255,255,255,.5)" stroke-width="1"/>'
+    +'<circle cx="'+BL[0]+'" cy="'+BL[1]+'" r="4" fill="#0a0a0a" stroke="rgba(255,255,255,.5)" stroke-width="1"/>'
+    +'<circle cx="'+BR[0]+'" cy="'+BR[1]+'" r="4" fill="#0a0a0a" stroke="rgba(255,255,255,.5)" stroke-width="1"/>'
+    +'<circle cx="'+iT[0]+'" cy="'+iT[1]+'" r="3.5" fill="'+rng.c+'" opacity=".9"/>'
+    +'<circle cx="'+iBL[0]+'" cy="'+iBL[1]+'" r="3.5" fill="'+rng.c+'" opacity=".9"/>'
+    +'<circle cx="'+iBR[0]+'" cy="'+iBR[1]+'" r="3.5" fill="'+rng.c+'" opacity=".9"/>'
+    +'<text x="140" y="9" text-anchor="middle" fill="rgba(240,168,68,.8)" font-size="9" font-family="inherit" letter-spacing="2" font-weight="400">ЭНЕРГИЯ</text>'
+    +'<text x="22" y="213" text-anchor="middle" fill="rgba(77,217,255,.8)" font-size="9" font-family="inherit" letter-spacing="2" font-weight="400">ТЕЛО</text>'
+    +'<text x="258" y="213" text-anchor="middle" fill="rgba(163,116,247,.8)" font-size="9" font-family="inherit" letter-spacing="2" font-weight="400">СОЗНАНИЕ</text>'
+    +'</svg><div class="tleg">Чем больше треугольник — тем выше уровень системы</div></div>'
+    +'<div class="rlvg">'+lvgrid+'</div>'+warnH
+    +'<div class="gsep"></div>'
+    +'<div class="rfoc"><div class="rfoclb">△ Главная зона роста</div>'
+    +'<div class="rfocnm">△ '+focus.l+'</div>'
+    +'<div class="rfocpc" style="color:'+fz.c+'">'+focus.v+'% · '+fz.l+'</div>'
+    +'<div class="rfocds">'+FDESC[focus.k]+'</div></div>'
+    +gapH
+    +'<div class="gsep"></div>'
+    // ─── MAIN CTA — prominent ───
+    +'<div class="rcta-main" style="'+bg+';'+bc+'">'
+    +'<div class="rctalb" style="color:'+rng.c+'88">'+C.lb+'</div>'
+    +'<div class="rctatl">'+C.tl+'</div>'
+    +'<div class="rctasc" style="color:'+rng.c+'99">'+C.sb+'</div>'
+    +'<div class="rctand">'+C.nt+'</div>'
+    +'<a href="#" onclick="openWaOverlay(event)" class="cta-primary" style="border-color:'+rng.c+'66;color:'+rng.c+';background:'+rng.c+'12">'
+    +C.btn+'<span class="cta-arrow">→</span></a>'
+    +'</div>'
+    +'<div class="rfooter">'
+    +'<button class="fbt-pdf" onclick="openPdfModal()">'
+    +'<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="12" height="14" rx="1" stroke="currentColor" stroke-width="1.3"/><path d="M5 5h6M5 8h6M5 11h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>'
+    +'  Отправить результат'
+    +'</button>'
+    +'<button class="fbt-restart" onclick="startQuiz()">↺ Пройти снова</button>'
+    +'</div></div>';
+
+  window._rd={b:b,m:m,e:e,idx:idx,fk:focus.k,fv:focus.v,gapN:gapN};
+  window._rng=rng;
+
+  _quizActive=false;
+  show('result');
+
+  // Animate counters after show — start from previous values if available
+  setTimeout(function(){
+    try{
+      var prevB=prev?prev.b:0, prevM=prev?prev.m:0, prevE=prev?prev.e:0, prevIdx=prev?prev.idx:0;
+      animateCount(document.getElementById('cntMain'),idx,1000,'%',prevIdx);
+      setTimeout(function(){animateCount(document.getElementById('cnt_body'),b,800,'%',prevB);},150);
+      setTimeout(function(){
+        var el=document.getElementById('bar_body');
+        if(el){el.style.transition='width .8s ease';el.style.width=b+'%';}
+      },150);
+      setTimeout(function(){animateCount(document.getElementById('cnt_mind'),m,800,'%',prevM);},250);
+      setTimeout(function(){
+        var el=document.getElementById('bar_mind');
+        if(el){el.style.transition='width .8s ease';el.style.width=m+'%';}
+      },250);
+      setTimeout(function(){animateCount(document.getElementById('cnt_energy'),e,800,'%',prevE);},350);
+      setTimeout(function(){
+        var el=document.getElementById('bar_energy');
+        if(el){el.style.transition='width .8s ease';el.style.width=e+'%';}
+      },350);
+    }catch(err){}
+  },200);
+}
+
+// ─────────────────────────────────────────────────────────────────
+// MODAL
+// ─────────────────────────────────────────────────────────────────
+function openPdfModal(){document.getElementById('pdfModal').classList.add('on');}
+function closePdfModal(){document.getElementById('pdfModal').classList.remove('on');}
+
+function buildResultText(){
+  var r=window._rd; if(!r)return '';
+  var rng=window._rng||getRange(r.idx);
+  var LN={body:'Тело',mind:'Сознание',energy:'Энергия'};
+  var zl=function(v){return v>=75?'Сильная зона':v>=58?'Нейтральная зона':'Зона роста';};
+  return '△ IMPULSE SCAN — Результат диагностики'
+    +'\n'+'—'.repeat(28)
+    +'\n\nОБЩЕЕ СОСТОЯНИЕ СИСТЕМЫ: '+r.idx+'% — '+rng.name
+    +'\n\n△ ТЕЛО:      '+r.b+'%  '+zl(r.b)+'  (потенциал +'+(100-r.b)+'%)'
+    +'\n△ СОЗНАНИЕ: '+r.m+'%  '+zl(r.m)+'  (потенциал +'+(100-r.m)+'%)'
+    +'\n△ ЭНЕРГИЯ:  '+r.e+'%  '+zl(r.e)+'  (потенциал +'+(100-r.e)+'%)'
+    +'\n\nГЛАВНАЯ ЗОНА РОСТА: '+LN[r.fk]+' ('+r.fv+'%)'
+    +'\n\nЧТО ДЕЛАТЬ:'
+    +'\n'+rng.sol
+    +'\n\nНа консультацию: wa.me/message/7BG5K6XMTZ34C1';
+}
+
+function doSendEmail(){
+  var emailEl=document.getElementById('emailVal');
+  var hint=document.getElementById('emailHint');
+  if(!emailEl||!emailEl.value||!emailEl.value.includes('@')){
+    if(emailEl)emailEl.style.borderColor='rgba(255,100,100,.5)';
+    setTimeout(function(){if(emailEl)emailEl.style.borderColor='';},1200);
+    if(hint)hint.innerHTML='<span style="color:rgba(255,130,130,.9)">Введи корректный email</span>';
+    return;
+  }
+  var r=window._rd; if(!r)return;
+  var rng=window._rng||getRange(r.idx);
+  var subj=encodeURIComponent('IMPULSE SCAN — '+r.idx+'% — '+rng.name);
+  var body=encodeURIComponent(buildResultText());
+  var a=document.createElement('a');
+  a.href='mailto:'+emailEl.value+'?subject='+subj+'&body='+body;
+  a.style.display='none';
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){document.body.removeChild(a);},300);
+  if(hint)hint.innerHTML='<span style="color:rgba(91,184,255,.85)">Открываем почту...</span>';
+  setTimeout(closePdfModal,1800);
+}
+
+function doSendWA(){
+  var r=window._rd; if(!r)return;
+  var msg=buildResultText();
+  var a=document.createElement('a');
+  a.href='https://wa.me/message/7BG5K6XMTZ34C1?text='+encodeURIComponent(msg);
+  a.target='_blank';a.rel='noopener noreferrer';
+  a.style.display='none';
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){document.body.removeChild(a);},300);
+  closePdfModal();
+}
+
+function openWaOverlay(e){
+  if(e)e.preventDefault();
+  document.getElementById('waOverlay').classList.add('on');
+}
+function closeWaOverlay(){
+  document.getElementById('waOverlay').classList.remove('on');
+}
+
+// ─────────────────────────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────────────────────────
+window.addEventListener('load',function(){
+  // Check for previous result
+  var prev=loadResult();
+  if(prev&&prev.idx!==undefined){
+    var banner=document.getElementById('prevBanner');
+    var val=document.getElementById('prevBannerVal');
+    if(banner&&val){
+      var rng=getRange(prev.idx);
+      val.innerHTML='<span>'+prev.idx+'%</span> · '+rng.name;
+      banner.style.display='flex';
+    }
+  }
+
+  // Check for in-progress quiz
+  var progress=loadProgress();
+  if(progress&&progress.cur>0&&Object.keys(progress.ans).length>0){
+    document.getElementById('resumeNote').style.display='block';
+    document.getElementById('defaultNote').style.display='none';
+    document.getElementById('startBtn').textContent='Начать заново';
+  }
+
+  show('intro');
+});
+</script>
+</body>
+</html>
